@@ -1,5 +1,9 @@
 package module01
 
+import (
+	"strings"
+)
+
 // DecToBase will return a string representing
 // the provided decimal number in the provided base.
 // This is limited to bases 2-16 for simplicity.
@@ -9,6 +13,15 @@ package module01
 //   DecToBase(14, 16) => "E"
 //   DecToBase(14, 2) => "1110"
 //
+
 func DecToBase(dec, base int) string {
-	return ""
+	const charset = "0123456789ABCDEF"
+	var stringBuilder strings.Builder
+
+	for dec > 0 {
+		remainder := dec % base
+		stringBuilder.WriteByte(charset[remainder])
+		dec = dec / base
+	}
+	return Reverse(stringBuilder.String())
 }
